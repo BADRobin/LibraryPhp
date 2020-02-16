@@ -19,7 +19,7 @@
  
 !function( $ ) {
 
-	var Slider = function(element, options) {
+	var Slider = function(element, options, Modernizr) {
 		this.element = $(element);
 		this.picker = $('<div class="slider">'+
 							'<div class="slider-track">'+
@@ -169,7 +169,7 @@
 		layout: function(){
 			this.handle1Stype[this.stylePos] = this.percentage[0]+'%';
 			this.handle2Stype[this.stylePos] = this.percentage[1]+'%';
-			if (this.orientation == 'vertical') {
+			if (this.orientation === 'vertical') {
 				this.selectionElStyle.top = Math.min(this.percentage[0], this.percentage[1]) +'%';
 				this.selectionElStyle.height = Math.abs(this.percentage[0] - this.percentage[1]) +'%';
 			} else {

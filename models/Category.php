@@ -11,7 +11,7 @@ class Category extends ActiveRecord
         return 'category';
     }
     public function getBooks(){
-        return $this->hasMany(Book::class(), ['category_id' => 'id']);
+        return $this->hasMany(Book::className(), ['category_id' => 'id']);
     }
 
 }
