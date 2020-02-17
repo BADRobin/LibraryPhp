@@ -8,10 +8,10 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
+
 use app\assets\AppAsset;
 use app\assets\LtAppAsset;
 
-//$this->registerCssFile('web/css');
 AppAsset::register($this);
 LtAppAsset::register($this);
 ?>
@@ -70,7 +70,8 @@ LtAppAsset::register($this);
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="index.html"><img src="images/home/logo.png" alt="" /></a>
+                        <a href="<?= \yii\helpers\Url::home() ?>"><?= Html::img('@web/images/home/logo.png', ['alt' => 'Book-Library']) ?>
+<!--                            <img src="images/home/logo.png" alt="" /></a>-->
                     </div>
                     <div class="btn-group pull-right">
                         <div class="btn-group">
@@ -148,7 +149,9 @@ LtAppAsset::register($this);
                 </div>
                 <div class="col-sm-3">
                     <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
+                        <form method="get" action="<?= yii\helpers\Url::to(['category/search']) ?>">
+                        <input type="text" placeholder="Search" name="q"/>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -304,7 +307,6 @@ LtAppAsset::register($this);
             </div>
         </div>
     </div>
-
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
@@ -315,10 +317,80 @@ LtAppAsset::register($this);
     </div>
 
 </footer><!--/Footer-->
+<?php \yii\bootstrap\Modal::begin([
+    'header' => '<h2>Корзина</h2>',
+    'id' => 'cart',
+    'footer' => '<button type="button" class="btn-default" data-dismiss="modal">Продолжить</button>
+            <button class="btn btn-primary">Заказать</button>']);
+\yii\bootstrap\Modal::end();
+?>
 
 
 
 <?php $this->endBody() ?>
 </body>
+<script>
+    $( ".catalog" ).dcAccordion();
+</script>
+<script>
+    function showCart(cart){
+        $('#cart .modal-body').html(cart);
+        $('#cart').modal();
+    }
+</script>
+<script>
+    $('.del-item').on('click', function () {
+        alert (123);
+    })
+</script>
+<script>
+    function clearCart(){
+        $.ajax({
+            url: '/cart/clear',
+            type: 'GET',
+            success: function(res){
+                if(!res) alert('Ошибка!');
+                showCart(res);
+            },
+            error: function(){
+                alert('ERROR');
+            }
+        });
+    }
+</script>
+<script>
+    function getCart() {
+        $.ajax({
+            url: '/cart/show',
+            type: 'GET',
+            success: function(res){
+                if(!res) alert('Ошибка!');
+                showCart(res);
+            },
+            error: function(){
+                alert('ERROR');
+            }
+        });
+        return false;
+    }
+</script>
+<script>
+    $('#cart .modal-body').on('click', '.del-item', function(){
+        var id = $(this).data('id');
+        $.ajax({
+            url: '/cart/del-item',
+            data: {id: id},
+            type: 'GET',
+            success: function(res){
+                if(!res) alert('Ошибка!');
+                //console.log(res);
+                showCart(res);
+            },
+            error: function(){
+                alert('ERROR');
+            }
+        });
+    });
+</script>
 </html>
 <?php $this->endPage() ?>

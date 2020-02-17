@@ -35,7 +35,18 @@ $config = [
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
             'useFileTransport' => true,
-        ],
+//                        'transport' => [
+//                            'class' => 'Swift_SmtpTransport',
+//                            'encryption' => 'ssl',
+//                            'host' => 'Smtp.gmail.ru',
+//                            'port' => '465',
+//                            'username' => 'your_username',
+//                            'password' => 'your_password',
+//                        ],
+                    ],
+
+
+
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -51,7 +62,6 @@ $config = [
 //            'enablePrettyUrl' => true,
 //            'showScriptName' => false,
 //            'rules' => [
-//                'category/<id:\d+>'=> 'category/view',
 //            ],
 //        ],
 

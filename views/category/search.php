@@ -48,53 +48,46 @@ use yii\widgets\LinkPager;
 
             <div class="col-sm-9 padding-right">
                 <div class="features_items"><!--features_items-->
-                    <h2 class="title text-center"><?=$category->name ?></h2>
+                    <h2 class="title text-center">Поиск по запросу: <?= $q ?></h2>
                     <?php $i = 0; if (!empty($books)): ?>
                         <?php foreach ($books as $book): ?>
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <?=Html::img("@web/images/books/{$book->img}", ['alt' => $book->name])?>
-                                    <h2>$<?= $book->price?></h2>
-                                    <p><a href="<?= Url::to(['book/view', 'id' =>$book->id])?>"><?= $book->name?></a></p>
-                                    <a href="<?= Url::to(['cart/add', 'id' => $book->id])?>" data-id="<?= $hit->id?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <?=Html::img("@web/images/books/{$book->img}", ['alt' => $book->name])?>
+                                            <h2>$<?= $book->price?></h2>
+                                            <p><a href="<?= Url::to(['book/view', 'id' =>$book->id])?>"><?= $book->name?></a></p>
+                                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        </div>
+                                        <?php if ($book->new) :?>
+                                            <?=Html::img("@web/images/home/new.png", ['alt' => 'Новинка', 'class' => 'new'])?>
+                                        <?php endif; ?>
+                                        <?php if ($book->sale) :?>
+                                            <?=Html::img("@web/images/home/sale.png", ['alt' => 'Распродажа', 'class' => 'new'])?>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="choose">
+                                        <ul class="nav nav-pills nav-justified">
+                                            <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                                            <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <?php if ($book->new) :?>
-                                    <?=Html::img("@web/images/home/new.png", ['alt' => 'Новинка', 'class' => 'new'])?>
-                                <?php endif; ?>
-                                <?php if ($book->sale) :?>
-                                    <?=Html::img("@web/images/home/sale.png", ['alt' => 'Распродажа', 'class' => 'new'])?>
-                                <?php endif; ?>
                             </div>
-                            <div class="choose">
-                                <ul class="nav nav-pills nav-justified">
-                                    <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                    <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                        <?php $i++ ?>
-                        <?php if ($i % 3 == 0): ?>
-                            <div class="clearfix"></div>
-                        <?php endif;?>
-                    <?php endforeach;?>
+                            <?php $i++ ?>
+                            <?php if ($i % 3 == 0): ?>
+                                <div class="clearfix"></div>
+                            <?php endif;?>
+                        <?php endforeach;?>
                         <div class="clearfix"></div>
                         <?php echo  yii\widgets\LinkPager::widget(['pagination' => $pages, ]); ?>
 
-                        <?php else:?>
-                        <h2>Книг нет</h2>
-<?php endif;?>
+                    <?php else:?>
+                        <h2>Ничего не найдено</h2>
+                    <?php endif;?>
 
 
-
-<!--                    <ul class="pagination">-->
-<!--                        <li class="active"><a href="">1</a></li>-->
-<!--                        <li><a href="">2</a></li>-->
-<!--                        <li><a href="">3</a></li>-->
-<!--                        <li><a href="">&raquo;</a></li>-->
-<!--                    </ul>-->
                 </div><!--features_items-->
             </div>
         </div>

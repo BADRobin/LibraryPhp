@@ -3,7 +3,6 @@
 /* @var $this yii\web\View */
 use yii\helpers\Html;
 use yii\helpers\Url;
-
 ?>
 
 <section id="slider"><!--slider-->
@@ -122,8 +121,8 @@ use yii\helpers\Url;
                                 <div class="productinfo text-center">
                                     <?=Html::img("@web/images/books/{$hit->img}", ['alt' => $hit->name])?>
                                     <h2>$<?= $hit->price?></h2>
-                                    <p><?= $hit->name?></p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                    <p><a href="<?= Url::to(['book/view', 'id' =>$hit->id])?>"><?= $hit->name?></a> </p>
+                                    <a href="<?= Url::to(['cart/add', 'id' => $hit->id])?>" data-id="<?= $hit->id?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                 </div>
 
                                 <?php if ($hit->new) :?>
@@ -536,4 +535,64 @@ use yii\helpers\Url;
 </section>
 <script>
     $( ".catalog" ).dcAccordion();
+</script>
+<script>
+    function showCart(cart){
+        $('#cart .modal-body').html(cart);
+        $('#cart').modal();
+    }
+</script>
+<script>
+    $('.del-item').on('click', function () {
+        alert (123);
+    })
+</script>
+<script>
+    function clearCart(){
+        $.ajax({
+            url: '/cart/clear',
+            type: 'GET',
+            success: function(res){
+                if(!res) alert('Ошибка!');
+                showCart(res);
+            },
+            error: function(){
+                alert('ERROR');
+            }
+        });
+    }
+</script>
+<script>
+    function getCart() {
+        $.ajax({
+            url: '/cart/show',
+            type: 'GET',
+            success: function(res){
+                if(!res) alert('Ошибка!');
+                showCart(res);
+            },
+            error: function(){
+                alert('ERROR');
+            }
+        });
+        return false;
+    }
+</script>
+<script>
+    $('#cart .modal-body').on('click', '.del-item', function(){
+        var id = $(this).data('id');
+        $.ajax({
+            url: '/cart/del-item',
+            data: {id: id},
+            type: 'GET',
+            success: function(res){
+                if(!res) alert('Ошибка!');
+                //console.log(res);
+                showCart(res);
+            },
+            error: function(){
+                alert('ERROR');
+            }
+        });
+    });
 </script>

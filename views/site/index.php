@@ -660,3 +660,66 @@ $this->title = 'My Yii Application';
 <script>
     $( ".catalog" ).dcAccordion();
 </script>
+<script>
+    $( ".catalog" ).dcAccordion();
+</script>
+<script>
+    function showCart(cart){
+        $('#cart .modal-body').html(cart);
+        $('#cart').modal();
+    }
+</script>
+<script>
+    $('.del-item').on('click', function () {
+        alert (123);
+    })
+</script>
+<script>
+    function clearCart(){
+        $.ajax({
+            url: '/cart/clear',
+            type: 'GET',
+            success: function(res){
+                if(!res) alert('Ошибка!');
+                showCart(res);
+            },
+            error: function(){
+                alert('ERROR');
+            }
+        });
+    }
+</script>
+<script>
+    function getCart() {
+        $.ajax({
+            url: '/cart/show',
+            type: 'GET',
+            success: function(res){
+                if(!res) alert('Ошибка!');
+                showCart(res);
+            },
+            error: function(){
+                alert('ERROR');
+            }
+        });
+        return false;
+    }
+</script>
+<script>
+    $('#cart .modal-body').on('click', '.del-item', function(){
+        var id = $(this).data('id');
+        $.ajax({
+            url: '/cart/del-item',
+            data: {id: id},
+            type: 'GET',
+            success: function(res){
+                if(!res) alert('Ошибка!');
+                //console.log(res);
+                showCart(res);
+            },
+            error: function(){
+                alert('ERROR');
+            }
+        });
+    });
+</script>
