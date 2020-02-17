@@ -16,7 +16,7 @@ use yii\widgets\LinkPager;
                         <?= \app\components\MenuWidget::widget(['tpl' => 'menu'])?>
                     </ul>
 
-                    <div class="brands_products"><!--brands_products-->
+                    <div class="brands_products">
                         <h2>Авторы</h2>
                         <div class="brands-name">
                             <ul class="nav nav-pills nav-stacked">
@@ -41,8 +41,8 @@ use yii\widgets\LinkPager;
             </div>
 
             <div class="col-sm-9 padding-right">
-                <div class="features_items"><!--features_items-->
-                    <h2 class="title text-center"><?=$category->name ?></h2>
+                <div class="features_items">
+                    <h2 class="title text-center"><?=$author->name ?></h2>
                     <?php $i = 0; if (!empty($books)): ?>
                         <?php foreach ($books as $book): ?>
                     <div class="col-sm-4">

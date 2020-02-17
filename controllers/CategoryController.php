@@ -6,7 +6,6 @@ use app\models\Category;
 use app\models\Book;
 use Yii;
 use yii\data\Pagination;
-use yii\db\Query;
 use yii\web\HttpException;
 
 class CategoryController extends AppController
@@ -25,7 +24,7 @@ $query = Book::find()->where(['category_id' => $id]);
 $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 3, 'forcePageParam'=>false, 'pageSizeParam'=>false]);
 $books = $query-> offset($pages->offset)->limit($pages->limit)->all();
 $category = Category::findOne($id);
-$this->setMeta('Book-Library | ' . $category->name, $category->keywords, $category->description);
+$this->setMeta('Book-Library | ' . $category->name);
 return $this->render('view', compact('books', 'pages', 'category'));
 
     }
